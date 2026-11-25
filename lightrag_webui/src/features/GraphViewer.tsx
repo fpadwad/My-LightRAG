@@ -92,8 +92,10 @@ const createSigmaSettings = (
     color: isDarkTheme ? labelColorDarkTheme : labelColorLightTheme,
     attribute: 'labelColor'
   },
-  edgeLabelSize: 8,
-  labelSize: 12
+  // Edge labels use screen pixels, so camera zoom alone cannot make them readable.
+  edgeLabelSize: 16,
+  edgeLabelWeight: '600',
+  labelSize: 20
 })
 
 const GraphEvents = () => {

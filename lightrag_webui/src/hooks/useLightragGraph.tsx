@@ -11,6 +11,7 @@ import { useSettingsStore } from '@/stores/settings'
 
 import { resolveNodeColor, DEFAULT_NODE_COLOR } from '@/utils/graphColor'
 import { hasEdgeSafe, addUndirectedEdgeSafe } from '@/utils/graphEdgeSafety'
+import { formatRelationshipKeywords } from '@/utils/relationshipLabels'
 
 // Every node gets this border (the node-border program reads `borderColor`).
 const NODE_BORDER_COLOR = '#FFFFFF'
@@ -306,7 +307,7 @@ const createSigmaGraph = async (rawGraph: RawGraph | null): Promise<UndirectedGr
     // every edge); the human-readable relation name is properties.keywords.
     // originalWeight feeds GraphControl's thickness scaling.
     const attributes = {
-      label: (rawEdge.properties?.keywords as string | undefined) || undefined,
+      label: formatRelationshipKeywords(rawEdge.properties?.keywords),
       originalWeight: parseEdgeWeight(rawEdge.properties)
     }
     const dynamicId = addUndirectedEdgeSafe(graph, rawEdge.source, rawEdge.target, attributes)
@@ -1009,7 +1010,7 @@ const useLightrangeGraph = () => {
 
           // Add the edge to the sigma graph
           const edgeAttributes = {
-            label: newEdge.properties?.keywords || undefined,
+            label: formatRelationshipKeywords(newEdge.properties?.keywords),
             size: weight, // Set initial size based on weight
             originalWeight: weight // Store original weight for recalculation
             // no `type`: use the default (cheap straight-line) edge program

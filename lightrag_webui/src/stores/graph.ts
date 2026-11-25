@@ -3,6 +3,7 @@ import { createSelectors } from '@/lib/utils'
 import { DirectedGraph } from 'graphology'
 import MiniSearch from 'minisearch'
 import { resolveNodeColor, DEFAULT_NODE_COLOR } from '@/utils/graphColor'
+import { formatRelationshipKeywords } from '@/utils/relationshipLabels'
 
 // Minimal imperative handle the store needs to own a running layout: enough to
 // terminate the previous one before a new layout takes over.
@@ -453,7 +454,7 @@ const useGraphStoreBase = create<GraphState>()((set, get) => ({
       if (edgeIndex !== undefined && rawGraph.edges[edgeIndex]) {
         rawGraph.edges[edgeIndex].properties[propertyName] = newValue
         if(dynamicId !== undefined && propertyName === 'keywords') {
-          sigmaGraph.setEdgeAttribute(dynamicId, 'label', newValue)
+          sigmaGraph.setEdgeAttribute(dynamicId, 'label', formatRelationshipKeywords(newValue))
         }
       }
 

@@ -1,0 +1,349 @@
+{
+  "schema_version": "1.0",
+  "entity_types": [
+    "Person",
+    "EthnicGroup",
+    "SocialGroup",
+    "Organization",
+    "Place",
+    "TimeEntity",
+    "HistoricalEvent",
+    "CulturalPractice",
+    "InstitutionalConcept",
+    "BeliefEntity",
+    "PhysicalThing",
+    "Document",
+    "TextualRecord"
+  ],
+  "content_relations": {
+    "HAS_ETHNIC_AFFILIATION": [
+      [
+        [
+          "Person",
+          "SocialGroup"
+        ],
+        [
+          "EthnicGroup"
+        ]
+      ]
+    ],
+    "AFFILIATED_WITH": [
+      [
+        [
+          "Person",
+          "Organization"
+        ],
+        [
+          "Organization"
+        ]
+      ]
+    ],
+    "HOLDS_OFFICE": [
+      [
+        [
+          "Person"
+        ],
+        [
+          "InstitutionalConcept"
+        ]
+      ]
+    ],
+    "HAS_NATIVE_PLACE": [
+      [
+        [
+          "Person"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "RESIDES_IN": [
+      [
+        [
+          "Person"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "BORN_IN": [
+      [
+        [
+          "Person"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "HAS_PARENT": [
+      [
+        [
+          "Person"
+        ],
+        [
+          "Person"
+        ]
+      ]
+    ],
+    "HAS_SPOUSE": [
+      [
+        [
+          "Person"
+        ],
+        [
+          "Person"
+        ]
+      ]
+    ],
+    "DISTRIBUTED_IN": [
+      [
+        [
+          "EthnicGroup",
+          "SocialGroup"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "ADMINISTRATIVELY_WITHIN": [
+      [
+        [
+          "Place"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "LOCATED_IN": [
+      [
+        [
+          "Place",
+          "Organization",
+          "PhysicalThing"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "PARTICIPATES_IN": [
+      [
+        [
+          "Person",
+          "EthnicGroup",
+          "SocialGroup",
+          "Organization"
+        ],
+        [
+          "HistoricalEvent",
+          "CulturalPractice"
+        ]
+      ]
+    ],
+    "OCCURS_AT": [
+      [
+        [
+          "HistoricalEvent"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "OCCURS_DURING": [
+      [
+        [
+          "HistoricalEvent"
+        ],
+        [
+          "TimeEntity"
+        ]
+      ]
+    ],
+    "PRACTICES_CUSTOM": [
+      [
+        [
+          "EthnicGroup",
+          "SocialGroup",
+          "Organization"
+        ],
+        [
+          "CulturalPractice"
+        ]
+      ]
+    ],
+    "CUSTOM_PRACTICED_IN": [
+      [
+        [
+          "CulturalPractice"
+        ],
+        [
+          "Place"
+        ]
+      ]
+    ],
+    "ASSOCIATED_WITH_CALENDAR": [
+      [
+        [
+          "CulturalPractice"
+        ],
+        [
+          "TimeEntity"
+        ]
+      ]
+    ],
+    "APPLIES_DURING": [
+      [
+        [
+          "CulturalPractice",
+          "InstitutionalConcept"
+        ],
+        [
+          "TimeEntity"
+        ]
+      ]
+    ],
+    "FOLLOWS_INSTITUTION": [
+      [
+        [
+          "Person",
+          "SocialGroup",
+          "Organization",
+          "CulturalPractice"
+        ],
+        [
+          "InstitutionalConcept"
+        ]
+      ]
+    ],
+    "USES_OBJECT": [
+      [
+        [
+          "CulturalPractice",
+          "HistoricalEvent"
+        ],
+        [
+          "PhysicalThing"
+        ]
+      ]
+    ],
+    "WORSHIPS": [
+      [
+        [
+          "CulturalPractice"
+        ],
+        [
+          "BeliefEntity",
+          "Person",
+          "SocialGroup"
+        ]
+      ]
+    ],
+    "INVOLVES_WORK": [
+      [
+        [
+          "CulturalPractice"
+        ],
+        [
+          "Document"
+        ]
+      ]
+    ],
+    "PRODUCES": [
+      [
+        [
+          "Place"
+        ],
+        [
+          "PhysicalThing"
+        ]
+      ]
+    ],
+    "MADE_OF": [
+      [
+        [
+          "PhysicalThing"
+        ],
+        [
+          "PhysicalThing"
+        ]
+      ]
+    ],
+    "HAS_COMPONENT_ACTIVITY": [
+      [
+        [
+          "CulturalPractice"
+        ],
+        [
+          "CulturalPractice"
+        ]
+      ],
+      [
+        [
+          "HistoricalEvent"
+        ],
+        [
+          "HistoricalEvent"
+        ]
+      ]
+    ],
+    "ETHNIC_ORIGIN_CLAIM": [
+      [
+        [
+          "EthnicGroup"
+        ],
+        [
+          "EthnicGroup",
+          "SocialGroup",
+          "Place"
+        ]
+      ]
+    ],
+    "CREATES_WORK": [
+      [
+        [
+          "Person",
+          "Organization"
+        ],
+        [
+          "Document"
+        ]
+      ]
+    ],
+    "CITES": [
+      [
+        [
+          "Document"
+        ],
+        [
+          "Document"
+        ]
+      ]
+    ],
+    "EXCERPTED_IN": [
+      [
+        [
+          "Document"
+        ],
+        [
+          "Document"
+        ]
+      ]
+    ],
+    "EDITION_OF": [
+      [
+        [
+          "Document"
+        ],
+        [
+          "Document"
+        ]
+      ]
+    ]
+  }
+}

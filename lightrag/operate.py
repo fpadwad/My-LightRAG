@@ -76,6 +76,7 @@ from lightrag.chunk_schema import (
     format_parent_headings,
     strip_internal_multimodal_markup_for_extraction,
 )
+from lightrag.extraction.fangzhi import FangzhiProfile, project_payload, validate_payload
 from lightrag.prompt import PROMPTS, resolve_entity_extraction_prompt_profile
 from lightrag.constants import (
     GRAPH_FIELD_SEP,
@@ -951,6 +952,10 @@ async def _process_json_extraction_result(
             f"{_truncation_cause_suffix(result)}"
         )
         return dict(maybe_nodes), dict(maybe_edges)
+
+    # Research payloads also flow through this parser during cache rebuild.
+    if "schema_version" in parsed and "records" in parsed:
+        parsed = project_payload(parsed)
 
     # Models quoting LaTeX in descriptions routinely under-escape backslashes
     # ("\frac" is valid JSON meaning form feed + "rac"); restore the zero-risk
@@ -3982,8 +3987,12 @@ async def extract_entities(
     # unchanged. See the call site in _process_single_content below.
     kg_extraction_validator = global_config.get("kg_extraction_validator")
 
+    fangzhi_profile = FangzhiProfile.from_env()
     use_llm_func: callable = global_config["role_llm_funcs"]["extract"]
-    entity_extract_max_gleaning = global_config["entity_extract_max_gleaning"]
+    entity_extract_max_gleaning = (
+        0 if fangzhi_profile is not None
+        else global_config["entity_extract_max_gleaning"]
+    )
     # Cap on the gleaning LLM call's combined input (system + history user
     # prompt + history assistant response + continue prompt).  Pulled from
     # the same env knob that gates ``analyze_multimodal``'s sidecar trimming
@@ -3997,7 +4006,10 @@ async def extract_entities(
     extract_tokenizer: Tokenizer | None = global_config.get("tokenizer")
 
     # Check if JSON structured output mode is enabled
-    use_json_extraction = global_config.get("entity_extraction_use_json", False)
+    use_json_extraction = (
+        fangzhi_profile is not None
+        or global_config.get("entity_extraction_use_json", False)
+    )
 
     ordered_chunks = list(chunks.items())
     if not ordered_chunks:
@@ -4087,6 +4099,10 @@ async def extract_entities(
             if gleaning_precheck
             else 0
         )
+
+    if fangzhi_profile is not None:
+        entity_extraction_system_prompt = fangzhi_profile.system_prompt
+        logger.info("Fangzhi research extraction enabled: schema v1.0, Chinese prompts")
 
     processed_chunks = 0
     total_chunks = len(ordered_chunks)
@@ -4212,9 +4228,29 @@ async def extract_entities(
                 "entity_continue_extraction_user_prompt"
             ].format(**{**context_base, "input_text": content})
 
+        fangzhi_request = None
+        effective_extract_func = use_llm_func
+        if fangzhi_profile is not None:
+            fangzhi_request = fangzhi_profile.prepare_input(
+                chunk_key, chunk_dp, global_config
+            )
+            entity_extraction_user_prompt = fangzhi_profile.user_prompt(
+                fangzhi_request, content
+            )
+
+            async def validated_extract_func(*args, **kwargs):
+                response = await use_llm_func(*args, **kwargs)
+                validate_payload(
+                    json.loads(response), content, fangzhi_request["metadata"],
+                    fangzhi_request["dataset_id"], fangzhi_request["batch_id"],
+                )
+                return response
+
+            effective_extract_func = validated_extract_func
+
         final_result, timestamp = await use_llm_func_with_cache(
             entity_extraction_user_prompt,
-            use_llm_func,
+            effective_extract_func,
             system_prompt=entity_extraction_system_prompt,
             llm_response_cache=llm_response_cache,
             cache_type="extract",
@@ -4226,6 +4262,12 @@ async def extract_entities(
         )
 
         _report_truncation(final_result, "initial")
+
+        if fangzhi_profile is not None:
+            await asyncio.to_thread(
+                fangzhi_profile.validate_and_archive,
+                final_result, fangzhi_request, content, global_config,
+            )
 
         history = pack_user_ass_to_openai_messages(
             entity_extraction_user_prompt, final_result

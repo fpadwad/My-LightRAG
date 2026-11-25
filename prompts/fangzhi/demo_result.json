@@ -1,0 +1,382 @@
+{
+  "schema_version": "1.0",
+  "dataset_id": "DEMO",
+  "batch_id": "B001",
+  "entities": [
+    {
+      "entity_id": "DEMO_B001_E001",
+      "entity_name": "甲县",
+      "entity_type": "Place",
+      "identity_scope": {
+        "level": "batch",
+        "key": "DEMO_B001",
+        "note": "本批识别，未作跨批归并"
+      },
+      "aliases": [],
+      "description": "演示原文中的甲县。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "原文",
+          "quote": "甲县",
+          "locator": null,
+          "metadata_field": null
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E002",
+      "entity_name": "妇女",
+      "entity_type": "SocialGroup",
+      "identity_scope": {
+        "level": "record",
+        "key": "DEMO_B001_R001",
+        "note": "仅对应本条记载的地方人群"
+      },
+      "aliases": [],
+      "description": "第一条记载所述甲县妇女人群。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "原文",
+          "quote": "甲县妇女于上元祭祖。",
+          "locator": null,
+          "metadata_field": null
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E003",
+      "entity_name": "祭祖",
+      "entity_type": "CulturalPractice",
+      "identity_scope": {
+        "level": "batch",
+        "key": "DEMO_B001",
+        "note": "本批识别，未作跨批归并"
+      },
+      "aliases": [],
+      "description": "原文中被表述为实行或不实行的习俗。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "原文",
+          "quote": "甲县妇女于上元祭祖。",
+          "locator": null,
+          "metadata_field": null
+        },
+        {
+          "evidence_type": "原文",
+          "quote": "乙县妇女不行祭祖。",
+          "locator": null,
+          "metadata_field": null
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E004",
+      "entity_name": "上元",
+      "entity_type": "TimeEntity",
+      "identity_scope": {
+        "level": "batch",
+        "key": "DEMO_B001",
+        "note": "本批识别，未作跨批归并"
+      },
+      "aliases": [],
+      "description": "第一条记载明确提到的节令。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "原文",
+          "quote": "上元",
+          "locator": null,
+          "metadata_field": null
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E005",
+      "entity_name": "乙县",
+      "entity_type": "Place",
+      "identity_scope": {
+        "level": "batch",
+        "key": "DEMO_B001",
+        "note": "本批识别，未作跨批归并"
+      },
+      "aliases": [],
+      "description": "演示原文中的乙县。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "原文",
+          "quote": "乙县",
+          "locator": null,
+          "metadata_field": null
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E006",
+      "entity_name": "妇女",
+      "entity_type": "SocialGroup",
+      "identity_scope": {
+        "level": "record",
+        "key": "DEMO_B001_R002",
+        "note": "仅对应本条记载的地方人群"
+      },
+      "aliases": [],
+      "description": "第二条记载所述乙县妇女人群；不与甲县妇女人群合并。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "原文",
+          "quote": "乙县妇女不行祭祖。",
+          "locator": null,
+          "metadata_field": null
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E007",
+      "entity_name": "演示方志",
+      "entity_type": "Document",
+      "identity_scope": {
+        "level": "batch",
+        "key": "DEMO_B001",
+        "note": "本批识别，未作跨批归并"
+      },
+      "aliases": [],
+      "description": "调用方提供的演示来源，版本不详。",
+      "attributes": {
+        "document_kind": "unspecified"
+      },
+      "evidence": [
+        {
+          "evidence_type": "输入元数据",
+          "quote": "演示方志",
+          "locator": null,
+          "metadata_field": "book_title"
+        }
+      ]
+    },
+    {
+      "entity_id": "DEMO_B001_E008",
+      "entity_name": "示例地区",
+      "entity_type": "Place",
+      "identity_scope": {
+        "level": "batch",
+        "key": "DEMO_B001",
+        "note": "本批识别，未作跨批归并"
+      },
+      "aliases": [],
+      "description": "调用方给出的来源地域背景，不作为正文适用地域的依据。",
+      "attributes": {},
+      "evidence": [
+        {
+          "evidence_type": "输入元数据",
+          "quote": "示例地区",
+          "locator": null,
+          "metadata_field": "source_region"
+        }
+      ]
+    }
+  ],
+  "records": [
+    {
+      "record_id": "DEMO_B001_R001",
+      "entity_type": "TextualRecord",
+      "source_document_id": "DEMO_B001_E007",
+      "main_entity_ids": [
+        "DEMO_B001_E001",
+        "DEMO_B001_E002",
+        "DEMO_B001_E003",
+        "DEMO_B001_E004"
+      ],
+      "quote": "甲县妇女于上元祭祖。",
+      "locator": null,
+      "statement_type": "作者叙述",
+      "context": {
+        "source_region_ids": [
+          "DEMO_B001_E008"
+        ],
+        "applicable_place_ids": [
+          "DEMO_B001_E001"
+        ],
+        "applicable_time_ids": [
+          "DEMO_B001_E004"
+        ],
+        "concerned_group_ids": [
+          "DEMO_B001_E002"
+        ]
+      },
+      "context_evidence": {
+        "source_region_ids": [
+          {
+            "evidence_type": "输入元数据",
+            "quote": "示例地区",
+            "locator": null,
+            "metadata_field": "source_region"
+          }
+        ],
+        "applicable_place_ids": [
+          {
+            "evidence_type": "原文",
+            "quote": "甲县妇女于上元祭祖。",
+            "locator": null,
+            "metadata_field": null
+          }
+        ],
+        "applicable_time_ids": [
+          {
+            "evidence_type": "原文",
+            "quote": "甲县妇女于上元祭祖。",
+            "locator": null,
+            "metadata_field": null
+          }
+        ],
+        "concerned_group_ids": [
+          {
+            "evidence_type": "原文",
+            "quote": "甲县妇女于上元祭祖。",
+            "locator": null,
+            "metadata_field": null
+          }
+        ]
+      }
+    },
+    {
+      "record_id": "DEMO_B001_R002",
+      "entity_type": "TextualRecord",
+      "source_document_id": "DEMO_B001_E007",
+      "main_entity_ids": [
+        "DEMO_B001_E005",
+        "DEMO_B001_E006",
+        "DEMO_B001_E003"
+      ],
+      "quote": "乙县妇女不行祭祖。",
+      "locator": null,
+      "statement_type": "作者叙述",
+      "context": {
+        "source_region_ids": [
+          "DEMO_B001_E008"
+        ],
+        "applicable_place_ids": [
+          "DEMO_B001_E005"
+        ],
+        "applicable_time_ids": [],
+        "concerned_group_ids": [
+          "DEMO_B001_E006"
+        ]
+      },
+      "context_evidence": {
+        "source_region_ids": [
+          {
+            "evidence_type": "输入元数据",
+            "quote": "示例地区",
+            "locator": null,
+            "metadata_field": "source_region"
+          }
+        ],
+        "applicable_place_ids": [
+          {
+            "evidence_type": "原文",
+            "quote": "乙县妇女不行祭祖。",
+            "locator": null,
+            "metadata_field": null
+          }
+        ],
+        "applicable_time_ids": [],
+        "concerned_group_ids": [
+          {
+            "evidence_type": "原文",
+            "quote": "乙县妇女不行祭祖。",
+            "locator": null,
+            "metadata_field": null
+          }
+        ]
+      }
+    }
+  ],
+  "relationships": [
+    {
+      "relation_id": "DEMO_B001_L001",
+      "source_id": "DEMO_B001_E002",
+      "relation_type": "PRACTICES_CUSTOM",
+      "target_id": "DEMO_B001_E003",
+      "record_ids": [
+        "DEMO_B001_R001"
+      ],
+      "polarity": "肯定",
+      "quote": "甲县妇女于上元祭祖。",
+      "qualifiers": {
+        "time_ids": [],
+        "place_ids": [],
+        "group_ids": [],
+        "role": null,
+        "conditions": [],
+        "other": {}
+      }
+    },
+    {
+      "relation_id": "DEMO_B001_L002",
+      "source_id": "DEMO_B001_E003",
+      "relation_type": "ASSOCIATED_WITH_CALENDAR",
+      "target_id": "DEMO_B001_E004",
+      "record_ids": [
+        "DEMO_B001_R001"
+      ],
+      "polarity": "肯定",
+      "quote": "甲县妇女于上元祭祖。",
+      "qualifiers": {
+        "time_ids": [],
+        "place_ids": [],
+        "group_ids": [
+          "DEMO_B001_E002"
+        ],
+        "role": null,
+        "conditions": [],
+        "other": {}
+      }
+    },
+    {
+      "relation_id": "DEMO_B001_L003",
+      "source_id": "DEMO_B001_E003",
+      "relation_type": "CUSTOM_PRACTICED_IN",
+      "target_id": "DEMO_B001_E001",
+      "record_ids": [
+        "DEMO_B001_R001"
+      ],
+      "polarity": "肯定",
+      "quote": "甲县妇女于上元祭祖。",
+      "qualifiers": {
+        "time_ids": [],
+        "place_ids": [],
+        "group_ids": [
+          "DEMO_B001_E002"
+        ],
+        "role": null,
+        "conditions": [],
+        "other": {}
+      }
+    },
+    {
+      "relation_id": "DEMO_B001_L004",
+      "source_id": "DEMO_B001_E006",
+      "relation_type": "PRACTICES_CUSTOM",
+      "target_id": "DEMO_B001_E003",
+      "record_ids": [
+        "DEMO_B001_R002"
+      ],
+      "polarity": "否定",
+      "quote": "乙县妇女不行祭祖。",
+      "qualifiers": {
+        "time_ids": [],
+        "place_ids": [],
+        "group_ids": [],
+        "role": null,
+        "conditions": [],
+        "other": {}
+      }
+    }
+  ],
+  "review_notes": []
+}

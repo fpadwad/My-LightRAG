@@ -6,6 +6,7 @@ import { useGraphStore } from '@/stores/graph'
 import { useSettingsStore } from '@/stores/settings'
 import { SearchHistoryManager } from '@/utils/SearchHistoryManager'
 import { normalizeEntityName } from '@/utils/entityName'
+import { formatRelationshipKeywords } from '@/utils/relationshipLabels'
 import { PropertyName, EditIcon, PropertyValue } from './PropertyRowComponents'
 import PropertyEditDialog from './PropertyEditDialog'
 import MergeDialog from './MergeDialog'
@@ -303,7 +304,9 @@ const EditablePropertyRow = ({
       <PropertyName name={name} />
       {!pipelineBusy && <EditIcon onClick={handleEditClick} />}:
       <PropertyValue
-        value={currentValue}
+        value={entityType === 'edge' && name === 'keywords'
+          ? formatRelationshipKeywords(currentValue)
+          : currentValue}
         onClick={onClick}
         tooltip={tooltip || (typeof currentValue === 'string' ? currentValue : JSON.stringify(currentValue, null, 2))}
       />
