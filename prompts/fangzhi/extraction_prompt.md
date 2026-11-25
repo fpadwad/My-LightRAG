@@ -1,10 +1,10 @@
-# 古代方志实体与关系抽取提示词 v1.0
+# 古代方志实体与关系抽取提示词 v1.1
 
 使用方法：将本提示词与《古代方志文献知识图谱_实体与关系类型_修订版.md》全文一并交给模型，再填写输入区。用于程序调用时必须把 Schema 全文实际注入上下文，不能只传文件名或电脑路径。本提示词输出研究主数据，不是 LightRAG 原生抽取接口格式。
 
 ---
 
-你是一名古代方志与历史文献知识图谱整理助手。请依据本次提供的 Schema v1.0 完整规范，处理输入区的原文，输出具有可追溯证据的实体、文献记载和内容关系断言。
+你是一名古代方志与历史文献知识图谱整理助手。请依据本次提供的 Schema v1.1 完整规范，处理输入区的原文，输出具有可追溯证据的实体、文献记载和内容关系断言。
 
 ## 一、指令与材料边界
 
@@ -29,15 +29,15 @@
 
 ## 三、抽取范围
 
-1. 严格使用 Schema 的 13 类实体。关系只抽取其“模型抽取的内容关系”表中的 30 种；不得自行新增类型、关系或子类，不输出 Other。
-2. 7 种结构关系由后续程序根据 records 字段派生，不重复输出 FROM_DOCUMENT、DESCRIBES、RECORDED_IN、HAS_SOURCE_REGION、HAS_APPLICABLE_PLACE、HAS_APPLICABLE_TIME、CONCERNS_GROUP。
+1. 严格使用 Schema 的 15 类实体。关系只抽取其“模型抽取的内容关系”表中的 38 种；不得自行新增类型、关系或子类，不输出 Other。
+2. 8 种结构关系由后续程序根据 records 字段派生，不重复输出 FROM_DOCUMENT、DESCRIBES、RECORDED_IN、HAS_SOURCE_REGION、HAS_APPLICABLE_PLACE、HAS_APPLICABLE_TIME、HAS_APPLICABLE_CALENDAR、CONCERNS_GROUP。
 3. 完整处理本批符合规范的内容。无匹配类型或关系时写 review_notes，不强行套用含义相近的关系。
 4. 不使用外部知识补充族属、身份、地名对应、朝代换算、族源或习俗背景。调用方明确给出的书目元数据和登记表可在其限定范围内使用，不据此推断正文事实。
 
 ## 四、实体识别与身份
 
 1. 具体个人归 Person；妇女、童子、商人、家族等归 SocialGroup；明确族群归 EthnicGroup，不凭姓氏推定族属。
-2. 官署或军队归 Organization，官职与制度归 InstitutionalConcept。寺院作为建筑地点归 Place，作为宗教组织归 Organization；只在两种对象均有依据时拆成两个节点。
+2. 官署或军队归 Organization，官职归 OfficialPosition，制度归 InstitutionalConcept。寺院作为建筑地点归 Place，作为宗教组织归 Organization；只在两种对象均有依据时拆成两个节点。
 3. 某次具体事件归 HistoricalEvent，反复实行的习俗或实践归 CulturalPractice。不要从普通动作步骤强行拆出事件或习俗。
 4. 神灵与神像、神牌分别识别；祖先不自动视为神灵。传说作为有名称或明确边界的作品时可建 Document，作为叙述性质时只标记 statement_type。
 5. entity_id 与 entity_name 分离。同名不能自动合并；身份不明确时保留不同 ID 并待核。
@@ -164,7 +164,7 @@ issue_type 取指代不明、身份待核、类型未覆盖、关系未覆盖、
 
 ## 八、输出前自检
 
-1. 只使用 13 类实体与 30 种内容关系；7 种结构关系未重复输出。
+1. 只使用 15 类实体与 38 种内容关系；8 种结构关系未重复输出。
 2. ID 唯一，所有引用存在；局部人群、同名对象未误合并；registered 身份确有登记表依据。
 3. 关系两端类型、方向与配偶端点顺序正确；不存在无意义自环或同条记录内重复断言。
 4. 每条内容关系恰好引用一条记录；端点在其主要对象中；quote 可在记录原文中逐字找到。
@@ -175,3 +175,5 @@ issue_type 取指代不明、身份待核、类型未覆盖、关系未覆盖、
 9. 原文和元数据证据分开，证据未改写或虚构；JSON 合法，无额外正文。
 
 自检后输出本批全部结果。模型自检不表示结果已通过程序或人工验收。
+
+补充：时间归 TimeEntity，节令归 CalendarTerm；研究JSON传输格式的 schema_version 仍为 "1.0"。context.applicable_time_ids 和 qualifiers.time_ids 可引用两类对象，分别保留原文依据。

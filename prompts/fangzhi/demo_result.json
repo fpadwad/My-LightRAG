@@ -75,7 +75,7 @@
     {
       "entity_id": "DEMO_B001_E004",
       "entity_name": "上元",
-      "entity_type": "TimeEntity",
+      "entity_type": "CalendarTerm",
       "identity_scope": {
         "level": "batch",
         "key": "DEMO_B001",

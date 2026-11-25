@@ -219,7 +219,7 @@
     },
     "legend": "图例",
     "nodeTypes": {
-      "person": "人物角色",
+      "person": "人物",
       "category": "分类",
       "geo": "地理名称",
       "location": "位置",
@@ -233,7 +233,7 @@
       "group": "群组",
       "technology": "技术",
       "product": "产品",
-      "document": "文档",
+      "document": "文献与作品",
       "content": "内容",
       "data": "数据",
       "artifact": "人工制品",
@@ -248,7 +248,19 @@
       "table": "表格",
       "drawing": "图片",
       "equation": "公式",
-      "other": "其他"
+      "other": "其他",
+      "ethnicgroup": "族群",
+      "socialgroup": "社会群体",
+      "place": "地点",
+      "timeentity": "时间",
+      "calendarterm": "节令",
+      "historicalevent": "历史事件",
+      "culturalpractice": "文化习俗",
+      "institutionalconcept": "制度",
+      "officialposition": "职官",
+      "beliefentity": "信仰对象",
+      "physicalthing": "物质对象",
+      "textualrecord": "文献记载"
     },
     "sideBar": {
       "settings": {

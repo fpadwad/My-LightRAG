@@ -1,4 +1,4 @@
-# 古代方志文献知识图谱：实体与关系规范 v1.0
+# 古代方志文献知识图谱：实体与关系规范 v1.1
 
 修订日期：2026-11-21。适用于古代方志及相关历史文献。本文与《抽取提示词_修订版.md》配套使用；历史事实、文献说法、整理生成的连接分别处理。
 
@@ -11,23 +11,25 @@
 
 ## 二、实体类型
 
-以下 13 种类型平级。每个节点只选一种主类型；同一称谓若指向不同对象，分别建节点。
+以下 15 种类型平级。每个节点只选一种主类型；同一称谓若指向不同对象，分别建节点。
 
-| 中文类型 | 英文标识 | 定义与边界 |
+| 实体类型 | 英文标识 | 定义与范围 |
 |---|---|---|
-| 人物 | Person | 可辨识的具体个人；泛称人群不归此类。历史人物作为被祭对象时仍可保留人物类型；纯神灵或神格对象归 BeliefEntity。 |
-| 族群 | EthnicGroup | 原文明示的民族或历史族群；不得凭服饰、姓氏、地域推定族属。 |
-| 社会群体 | SocialGroup | 以性别、年龄、职业、亲属等形成的群体，如妇女、童子、商人、家族。族群优先归 EthnicGroup；明确的组织归 Organization。 |
-| 组织机构 | Organization | 有组织边界的官署、军队、会社、宗教组织等。寺院僧团作为组织归此类，寺院建筑或地点归 Place。 |
-| 地点 | Place | 历史行政区、聚落、山川、建筑场所等。行政区与同名城址不能仅因同名合并。 |
-| 时间与节令 | TimeEntity | 朝代、年号、年份、时期、季节、日期及具名节日节期。保留原称；不自行换算公历或推定某年。 |
-| 历史事件 | HistoricalEvent | 特定历史语境中的某次事件，如某次迁徙、战争、灾害、修建。一次具体祭祀可归此类，其所体现的惯行习俗另归 CulturalPractice。 |
-| 文化习俗 | CulturalPractice | 惯行或反复开展的习俗、仪式、技艺与文化实践。通用习俗概念与有明确差异的地方形态可分开；不得凭同名直接认定内容一致。 |
-| 制度与职官 | InstitutionalConcept | 制度、规章、礼制、官职等概念；具体官署归 Organization，任职者归 Person。 |
-| 信仰对象 | BeliefEntity | 被崇奉或被叙述为超自然存在的对象。神像、神牌归 PhysicalThing；祖先不自动视为神灵。 |
-| 物质对象 | PhysicalThing | 器物、食品、服饰、材料、动植物及地方物产等；可辨识对象类别也可入此类，但具体物件与类别须注明区别。 |
-| 文献与作品 | Document | 志书、文书、篇章及可辨识的歌谣、谚语、传说作品。传说只是叙述性质时不另建作品节点。作品、版本、篇章分别标识。 |
-| 文献记载 | TextualRecord | 整理生成的支撑节点，表示特定来源、位置和语境下的一条核心记述；保存于 records，不重复放入 entities。 |
+| 人物 | Person | 可辨识的具体个人，如历史人物、地方官员、文献编纂者；妇女、童子、商人等泛指人群归入社会群体。 |
+| 族群 | EthnicGroup | 文献明确记述的民族或历史族群；不得仅凭姓氏、服饰、居住地域或相近族称推定族属或合并族群。 |
+| 社会群体 | SocialGroup | 按性别、年龄、职业、亲属等形成的人群，如妇女、童子、商人、家族；明确的民族或历史族群归入族群，具有组织边界的集体归入组织机构。 |
+| 组织机构 | Organization | 有组织边界的集体，如官署、军队、会社、宗教组织；寺院作为宗教组织时归入此类，作为建筑场所时归入地点。 |
+| 地点 | Place | 历史行政区、聚落、山川及可辨识的具体场所，如府县、村落、河流、寺庙建筑；同名行政区和城址不自动视为同一对象。 |
+| 时间 | TimeEntity | 朝代、年号、年份、历史时期、日期及明确的时间区间，如清代、康熙三十一年、正月十五；日期可以不带年份，具名节日、节气和季节性节候归入节令。 |
+| 节令 | CalendarTerm | 周期性出现的节日、节气、节期及季节性节候，如春节、上元、岁除、清明、冬至、春季；节令本身归入此类，其间实行的仪式和活动归入文化习俗。 |
+| 历史事件 | HistoricalEvent | 在一定历史语境中发生的具体事件，如某次迁徙、战争、灾害、修建或建置变动；某次具体活动与反复实行的习俗分开识别。 |
+| 文化习俗 | CulturalPractice | 惯行或反复开展的习俗、仪式、技艺及文化实践，如婚礼、祭祖、秧歌、走百病；不因动作在原文中出现就将其独立认定为习俗。 |
+| 制度 | InstitutionalConcept | 制度、规章、礼制及规范性安排，如里甲制、乡约、赋役制度、祭祀礼制；官职和职务概念归入职官，执行制度的具体官署归入组织机构。 |
+| 职官 | OfficialPosition | 官职、官衔及职务概念，如县令、知府、将军、佐领；实际任职者归入人物，具体官署或军政组织归入组织机构。同名词语须按原文中的职务或组织含义区分。 |
+| 信仰对象 | BeliefEntity | 文献中被崇奉、祭祀或作为超自然存在叙述的对象，如灶神、紫姑；神像、神牌等物质载体归入物质对象，祖先不自动归为神灵。 |
+| 物质对象 | PhysicalThing | 器物、食品、服饰、材料、动植物及地方物产等，如面灯、兽油、谷物；具体物件与物品类别按原文所指分别识别。 |
+| 文献与作品 | Document | 志书、史书、文书、篇章及可辨识的文字或口传作品，包括具体版本、歌谣、谚语、传说作品；作品及其具体版本分别识别，传说仅作为叙述性质时不另建作品实体。 |
+| 文献记载 | TextualRecord | 整理时建立的支撑节点，表示特定文献在具体位置和语境下的一条记述，用于连接原文、出处和所述对象；不等同于文献作品本身。 |
 
 ### 边界处理
 
@@ -69,42 +71,49 @@ Document 的 attributes.document_kind 必填 `work`、`edition`、`section`、`o
 
 除 HAS_SPOUSE 为对称关系，其他关系均按箭头方向保存。每条关系是独立断言，允许同一主体、关系、客体在不同记载或不同限定下出现多条。所有 ID 均引用本次输出中的 entities 或 records。
 
-### 1. 模型抽取的内容关系（30 种）
+### 1. 模型抽取的内容关系（37 种）
 
 | 中文关系 | 英文标识 | 主体 → 客体 | 范围与约束 |
 |---|---|---|---|
-| 族群归属 | HAS_ETHNIC_AFFILIATION | Person / SocialGroup → EthnicGroup | 仅明确族属，不据姓氏推断。 |
-| 组织隶属 | AFFILIATED_WITH | Person / Organization → Organization | 成员归属或上下级组织关系。 |
-| 担任职官 | HOLDS_OFFICE | Person → InstitutionalConcept | 保留任期、任地和职责。 |
-| 籍贯为 | HAS_NATIVE_PLACE | Person → Place | 与出生地、居住地分开。 |
-| 居住于 | RESIDES_IN | Person → Place | 原文明确居住或定居；行经不算。本版新增。 |
-| 出生于 | BORN_IN | Person → Place | 仅明确出生地，不能由籍贯推得。本版新增。 |
-| 父母为 | HAS_PARENT | Person → Person | 子女指向父母，qualifiers.role 保存父亲/母亲/未详。 |
-| 配偶为 | HAS_SPOUSE | Person ↔ Person | 对称；每条记载内按 ID 字符串升序存端点，只存一次；否定、时期或不同记载分别保留。 |
-| 分布于 | DISTRIBUTED_IN | EthnicGroup / SocialGroup → Place | 某一时期的分布或居住，不表示永久分布。 |
-| 行政隶属 | ADMINISTRATIVELY_WITHIN | Place → Place | 仅行政区隶属，保留时期。 |
-| 位于 | LOCATED_IN | Place / Organization / PhysicalThing → Place | 地理位置；不替代人物居住或行政隶属。 |
-| 参与 | PARTICIPATES_IN | Person / EthnicGroup / SocialGroup / Organization → HistoricalEvent / CulturalPractice | 一次参与用此项；群体惯行某习俗优先用 PRACTICES_CUSTOM，不能仅凭同一事实重复两项。 |
-| 发生地点 | OCCURS_AT | HistoricalEvent → Place | 某次事件发生地。 |
-| 发生时间 | OCCURS_DURING | HistoricalEvent → TimeEntity | 某次事件时间。 |
-| 实行习俗 | PRACTICES_CUSTOM | EthnicGroup / SocialGroup / Organization → CulturalPractice | 群体或组织惯行某习俗；个人一次参与用 PARTICIPATES_IN。 |
-| 习俗适用地域 | CUSTOM_PRACTICED_IN | CulturalPractice → Place | 正文明示该习俗在某地流行/实行；不能用来源地域代替。原文否定则 polarity=否定。 |
-| 关联节令 | ASSOCIATED_WITH_CALENDAR | CulturalPractice → TimeEntity | 节日、日期、季节联系。 |
-| 适用时期 | APPLIES_DURING | CulturalPractice / InstitutionalConcept → TimeEntity | 历史时期，非版本年份；任职者任期放 HOLDS_OFFICE 的限定。 |
-| 遵循制度 | FOLLOWS_INSTITUTION | Person / SocialGroup / Organization / CulturalPractice → InstitutionalConcept | 有明确遵循或受规范约束的记述。 |
-| 使用物品 | USES_OBJECT | CulturalPractice / HistoricalEvent → PhysicalThing | 实际使用及用途；否定仍按肯否限定处理。 |
-| 祭祀对象 | WORSHIPS | CulturalPractice → BeliefEntity / Person / SocialGroup | 活动所祭祀或祈请的对象；祖先群体不自动神灵化。 |
-| 涉及作品 | INVOLVES_WORK | CulturalPractice → Document | 活动使用、唱诵、讲述的作品。 |
-| 出产 | PRODUCES | Place → PhysicalThing | 明确物产记述。 |
-| 由材料制成 | MADE_OF | PhysicalThing → PhysicalThing | 器物指向材料。 |
-| 包含环节 | HAS_COMPONENT_ACTIVITY | CulturalPractice → CulturalPractice；HistoricalEvent → HistoricalEvent | 仅允许两组同类型配对，不是类型继承；无证据不分解普通动作。 |
-| 族群源出 | ETHNIC_ORIGIN_CLAIM | EthnicGroup → EthnicGroup / SocialGroup / Place | 记录来源提出的源流说法，不转写为已证实族源。 |
-| 编撰或创作 | CREATES_WORK | Person / Organization → Document | qualifiers.role 保留编、纂、修、撰等职责。 |
-| 引用 | CITES | Document → Document | 引用方指向被引作品；引文从当前直接来源取得时仍以当前直接来源建记录，不伪装成亲见被引书。 |
-| 摘录见于 | EXCERPTED_IN | Document → Document | 原作品指向收录其摘录的作品；与 CITES 方向不同，无明确收录依据不推断。 |
-| 版本属于 | EDITION_OF | Document → Document | edition 指向 work；书目证据明确时才建立。 |
+| 族群归属 | HAS_ETHNIC_AFFILIATION | 人物／社会群体 → 族群 | 文献明确记述的人物或人群的族属，不依据姓氏、居住地或习俗推定。 |
+| 组织隶属 | AFFILIATED_WITH | 人物／组织机构 → 组织机构 | 人物的组织归属，或组织之间的上下级隶属关系。 |
+| 担任职官 | HOLDS_OFFICE | 人物 → 职官 | 人物担任某项官职或职务；原文明示的任期、任地及兼任、署理等情况随关系保留。 |
+| 职官所属机构 | OFFICE_IN_ORGANIZATION | 职官 → 组织机构 | 某官职或岗位明确设置于、隶属于某官署或组织；不以任职者的个人组织归属替代。 |
+| 职官设置依据 | OFFICE_DEFINED_BY | 职官 → 制度 | 文献明确记述某官职的设置依据、职权规范或制度归属。 |
+| 职官管辖地域 | OFFICE_JURISDICTION | 职官 → 地点 | 某官职明确管辖的地域，不与任职者的籍贯、出生地或居住地混同。 |
+| 籍贯为 | HAS_NATIVE_PLACE | 人物 → 地点 | 人物的籍贯，不与出生地、居住地或任职地点混同。 |
+| 居住于 | RESIDES_IN | 人物 → 地点 | 文献明确记述的人物居住或定居地点，暂时行经不自动视为居住。 |
+| 出生于 | BORN_IN | 人物 → 地点 | 文献明确记述的人物出生地，不根据籍贯或居住地推定。 |
+| 父母为 | HAS_PARENT | 人物 → 人物 | 子女指向父亲或母亲，具体父母身份随关系保存。 |
+| 配偶为 | HAS_SPOUSE | 人物 ↔ 人物 | 文献明确记述的婚姻关系，为对称关系；相同记述下同一对人物不重复建立正反两条关系。 |
+| 分布于 | DISTRIBUTED_IN | 族群／社会群体 → 地点 | 某一时期的居住或分布地域，不将局部、阶段性分布推广为永久或全部分布。 |
+| 行政隶属 | ADMINISTRATIVELY_WITHIN | 地点 → 地点 | 历史行政区之间的隶属关系，保留原文明确的适用时期。 |
+| 位于 | LOCATED_IN | 地点／组织机构／物质对象 → 地点 | 地理位置或所在地点，不替代人物居住关系或行政隶属关系。 |
+| 参与 | PARTICIPATES_IN | 人物／族群／社会群体／组织机构 → 历史事件／文化习俗 | 实际参加某次事件或文化实践；群体惯行某习俗优先使用实行习俗，不为同一事实重复建立两种关系。 |
+| 发生地点 | OCCURS_AT | 历史事件 → 地点 | 某次具体事件的发生地点，不以来源文献题名中的地域代替。 |
+| 发生时间 | OCCURS_DURING | 历史事件 → 时间 | 某次具体事件发生的朝代、年份、日期或时间区间，不以文献版本年份代替。 |
+| 发生节令 | OCCURS_DURING_CALENDAR | 历史事件 → 节令 | 某次具体事件发生于某一节日、节气、节期或季节性节候；与事件的历史年份、具体日期分开表示。 |
+| 实行习俗 | PRACTICES_CUSTOM | 族群／社会群体／组织机构 → 文化习俗 | 文献记述某主体实行某种惯行习俗，保留地域、时期、人群及肯否限定。 |
+| 习俗适用地域 | CUSTOM_PRACTICED_IN | 文化习俗 → 地点 | 正文明确支持的习俗流行或实行地域，不仅凭志书来源地域建立。 |
+| 关联节令 | ASSOCIATED_WITH_CALENDAR | 文化习俗 → 节令 | 某种习俗与节日、节气、节期或季节性节候的联系，不将节令本身归为习俗。 |
+| 节令对应日期 | HAS_CALENDAR_DATE | 节令 → 时间 | 节令与历法日期或日期区间的对应，如上元对应正月十五；须有原文依据，不自行进行历法换算。 |
+| 适用时期 | APPLIES_DURING | 节令／文化习俗／制度／职官 → 时间 | 某节令、做法、制度或官职被明确记述为适用、施行或存在的历史时期，不以版本年代代替；人物任期保留在担任职官关系中。 |
+| 遵循制度 | FOLLOWS_INSTITUTION | 人物／社会群体／组织机构／文化习俗 → 制度 | 明确遵循、执行或受某种制度、规章或礼制约束，不将担任官职归入此关系。 |
+| 制度适用地域 | INSTITUTION_APPLIES_IN | 制度 → 地点 | 文献明确记述某制度施行或适用的地域，不根据文献来源地推定。 |
+| 制度适用对象 | INSTITUTION_APPLIES_TO | 制度 → 族群／社会群体／组织机构 | 文献明确记述某制度适用或约束的族群、人群或组织，保留例外及适用条件。 |
+| 使用物品 | USES_OBJECT | 文化习俗／历史事件 → 物质对象 | 活动中实际使用的物品，保留用途、方式及必要条件。 |
+| 祭祀对象 | WORSHIPS | 文化习俗 → 信仰对象／人物／社会群体 | 活动祭祀或祈请的对象；祖先按具体个人或人群识别，不自动归为神灵。 |
+| 涉及作品 | INVOLVES_WORK | 文化习俗 → 文献与作品 | 活动中唱诵、讲述、引用或使用的作品。 |
+| 出产 | PRODUCES | 地点 → 物质对象 | 文献明确记述的地方物产，不根据现今常识补充。 |
+| 由材料制成 | MADE_OF | 物质对象 → 物质对象 | 器物与其制作材料之间的关系。 |
+| 包含环节 | HAS_COMPONENT_ACTIVITY | 文化习俗 → 文化习俗；历史事件 → 历史事件 | 活动或事件的组成关系，仅允许表中两组同类型配对，不表示实体类型的子类关系。 |
+| 族群源出 | ETHNIC_ORIGIN_CLAIM | 族群 → 族群／社会群体／地点 | 文献提出的族群源流说法，保留其记述、主张、传说或推测性质及出处，不作为已证实族源。 |
+| 编撰或创作 | CREATES_WORK | 人物／组织机构 → 文献与作品 | 编纂、撰写或创作关系，具体职责随关系保存。 |
+| 引用 | CITES | 文献与作品 → 文献与作品 | 引用方指向被引用的文献或作品；转引关系不等于直接读取过被引文献。 |
+| 摘录见于 | EXCERPTED_IN | 文献与作品 → 文献与作品 | 原文献或作品的部分内容被收入另一文献或汇编，方向为原作品指向收录方。 |
+| 版本属于 | EDITION_OF | 文献与作品 → 文献与作品 | 具体版本指向其所属作品，须有明确书目依据。 |
 
-### 2. 程序派生的结构关系（7 种）
+### 2. 程序派生的结构关系（8 种）
 
 以下不由模型重复填写进 relationships，以记录字段为唯一来源。派生边使用 derived=true，承接 record_id 和证据来源，不冒充正文中的历史断言。
 
@@ -115,10 +124,11 @@ Document 的 attributes.document_kind 必填 `work`、`edition`、`section`、`o
 | 记载于 | RECORDED_IN | 非 TextualRecord 实体 → Document | 由同条记录的 main_entity_ids 与 source_document_id 生成，不把该连接视为事实真实性背书。 |
 | 来源地域 | HAS_SOURCE_REGION | TextualRecord → Place | 由 context.source_region_ids 生成；只能解释来源背景。 |
 | 记载适用地域 | HAS_APPLICABLE_PLACE | TextualRecord → Place | 由 context.applicable_place_ids 生成。 |
+| 记载适用节令 | HAS_APPLICABLE_CALENDAR | TextualRecord → CalendarTerm | 由 applicable_time_ids 中的节令实体派生。 |
 | 记载适用时间 | HAS_APPLICABLE_TIME | TextualRecord → TimeEntity | 由 context.applicable_time_ids 生成。 |
 | 记载涉及人群 | CONCERNS_GROUP | TextualRecord → EthnicGroup / SocialGroup | 由 context.concerned_group_ids 生成，不推定实际参与。 |
 
-本版共 37 种关系，其中 30 种内容关系、7 种派生结构关系。与原版相比，仅增加人物居住与出生地两项内容关系。
+本版共45种关系，其中37种内容关系、8种派生结构关系。时间与节令、制度与职官分别设置类型，关系方向和端点同步采用用户提供的v1.1规范。
 
 ## 五、证据、记载和限定
 
@@ -154,7 +164,7 @@ Document 的 attributes.document_kind 必填 `work`、`edition`、`section`、`o
 
 完整示例见《抽取结果_演示.json》，示例为虚构文本，不是史料结论。顶层固定包含 schema_version、dataset_id、batch_id、entities、records、relationships、review_notes。
 
-- schema_version 固定为 "1.0"。entities 不包含 TextualRecord；records 专门保存它。
+- 类型词表版本为v1.1；研究JSON传输格式的 schema_version 仍固定为 "1.0"。entities 不包含 TextualRecord；records 专门保存它。
 - entity_name、entity_type、description、ID、内容关系 quote 不得为空或 null；没有结果的数组为 []；未知的可空值为 null；没有附加属性的对象为 {}。
 - evidence 为数组。非生成的普通实体至少有一条原文或输入元数据证据。不要把来源 Document 的书目证据假写为正文摘句。
 - 新实体 descriptions 根据原文或允许的输入元数据填写，不补百科。复用登记表的实体保留既有描述及来源，不宣称它来自本批原文。
@@ -166,3 +176,7 @@ Document 的 attributes.document_kind 必填 `work`、`edition`、`section`、`o
 类型与关系须来自白名单；关系两端类型、方向、配偶对称性合法；全部 ID 唯一且引用存在；每个内容断言恰好对应一条记录；记录主要实体覆盖断言端点；证据逐字可定位；书目元数据与正文依据分开；否定、存疑、转引及局部范围完整保留。
 
 模型自检只能减少错误，不能代替程序校验和人工核对。生产使用前，至少检查同名异人、局部人群、正反说法、元数据来源、对称配偶五类样例。
+
+## v1.1 字段兼容说明
+
+类型和关系以 entity_relation_types_v1.1.md 为准。研究JSON字段结构保持兼容：context.applicable_time_ids 和 qualifiers.time_ids 可引用 TimeEntity 或 CalendarTerm，二者仍是不同实体类型；程序按类型分别派生 HAS_APPLICABLE_TIME 和 HAS_APPLICABLE_CALENDAR。人物任职连接 OfficialPosition，职官设置依据连接 InstitutionalConcept。

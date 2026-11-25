@@ -4102,7 +4102,7 @@ async def extract_entities(
 
     if fangzhi_profile is not None:
         entity_extraction_system_prompt = fangzhi_profile.system_prompt
-        logger.info("Fangzhi research extraction enabled: schema v1.0, Chinese prompts")
+        logger.info("Fangzhi research extraction enabled: schema v1.1, Chinese prompts")
 
     processed_chunks = 0
     total_chunks = len(ordered_chunks)
